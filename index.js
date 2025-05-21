@@ -119,10 +119,20 @@ fastify.put('/posts/:id', async (req, reply) => {
 });
 
 
-fastify.listen({ port: 3001 }, err => {
-  if (err) throw err;
-  console.log('Server running on port 3001');
+const PORT = process.env.PORT || 3001;
+
+fastify.listen({ port: PORT, host: '0.0.0.0' }, (err) => {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+  console.log(`Server running on port ${PORT}`);
 });
+
+fastify.get('/', async (req, reply) => {
+  return { message: 'Backend is running!' };
+});
+
 
 
 
