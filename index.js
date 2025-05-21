@@ -1,10 +1,15 @@
 const fastify = require('fastify')({ logger: true });
 const fastifyJWT = require('@fastify/jwt');
-const fastifyCors = require('@fastify/cors');
+//const fastifyCors = require('@fastify/cors');
 const { Client } = require('pg');
 
-fastify.register(fastifyCors);
+//fastify.register(fastifyCors);
 fastify.register(fastifyJWT, { secret: 'supersecret' });
+
+fastify.register(require('@fastify/cors'), {
+  origin: ['https://blog-platform-ten-tau.vercel.app/', 'http://localhost:3000'],
+});
+
 
 require('dotenv').config();
 
