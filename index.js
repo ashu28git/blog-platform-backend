@@ -6,17 +6,18 @@ const { Client } = require('pg');
 fastify.register(fastifyCors);
 fastify.register(fastifyJWT, { secret: 'supersecret' });
 
+require('dotenv').config();
 
 
 
 const db = new Client({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'blog_platform',
-  password: 'Asha2812@',
-  port: 5432,
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPORT,
 });
-db.connect();
+
 
 // Register user
 fastify.post('/register', async (req, reply) => {
